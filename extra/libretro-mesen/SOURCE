@@ -1,0 +1,16 @@
+src_unpack() {
+    git::clone https://github.com/libretro/Mesen.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_build() {
+    make -C Libretro
+}
+
+src_install() {
+    install -Dm 644 Libretro/mesen_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 LICENSE -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

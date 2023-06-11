@@ -1,0 +1,21 @@
+src_unpack() {
+    git::rclone https://github.com/flyinghead/flycast.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+    fs::mkdir build
+}
+
+src_build() {
+  cmake -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DLIBRETRO=ON \
+    -Wno-dev
+  cmake --build build
+}
+
+src_install() {
+    install -Dm 644 build/flycast_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 LICENSE -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

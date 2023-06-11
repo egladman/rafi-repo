@@ -1,0 +1,22 @@
+src_unpack() {
+    git::clone https://github.com/ianlancetaylor/libbacktrace.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_build() {
+    autoreconf -fi
+    ./configure \
+        --prefix="/usr" \
+        --enable-shared \
+        --with-system-libunwind
+  make
+}
+
+src_install() {
+    make DESTDIR="${PKG_DATA_PFX_SPEC_DIR}" install
+    install -Dm 644 "LICENSE" -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/libbacktrace"
+    tree "${PKG_DATA_PFX_SPEC_DIR}"
+}

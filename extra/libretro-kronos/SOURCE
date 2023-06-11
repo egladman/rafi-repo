@@ -1,0 +1,16 @@
+src_unpack() {
+    git::clone https://github.com/libretro/yabause.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_build() {
+    make -C yabause/src/libretro
+}
+
+src_install() {
+    install -Dm 644 yabause/src/libretro/kronos_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 yabause/COPYING -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

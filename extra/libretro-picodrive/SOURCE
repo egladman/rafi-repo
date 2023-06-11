@@ -1,0 +1,16 @@
+src_unpack() {
+    git::rclone https://github.com/libretro/picodrive.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_build() {
+    make -f Makefile.libretro
+}
+
+src_install() {
+    install -Dm 644 picodrive_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 COPYING -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

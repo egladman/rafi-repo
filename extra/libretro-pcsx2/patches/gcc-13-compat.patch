@@ -1,0 +1,26 @@
+diff --git a/pcsx2/Frontend/InputManager.cpp b/pcsx2/Frontend/InputManager.cpp
+index 3c4d3d876..e07020b02 100644
+--- a/pcsx2/Frontend/InputManager.cpp
++++ b/pcsx2/Frontend/InputManager.cpp
+@@ -32,6 +32,7 @@
+ #include <unordered_map>
+ #include <variant>
+ #include <vector>
++#include <string_view>
+ 
+ // ------------------------------------------------------------------------
+ // Constants
+diff --git a/pcsx2/Frontend/SDLInputSource.cpp b/pcsx2/Frontend/SDLInputSource.cpp
+index 4993e4351..4b62b7de5 100644
+--- a/pcsx2/Frontend/SDLInputSource.cpp
++++ b/pcsx2/Frontend/SDLInputSource.cpp
+@@ -22,6 +22,9 @@
+ #include "common/StringUtil.h"
+ #include "common/Console.h"
+ #include <cmath>
++#include <string>
++#include <string_view>
++
+ 
+ #include "GS/GSIntrin.h" // _BitScanForward
+ 

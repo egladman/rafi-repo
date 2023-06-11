@@ -1,0 +1,42 @@
+src_unpack() {
+    git::rclone https://github.com/libretro/pcsx2.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+    fs::mkdir build
+}
+
+src_configure() {
+   git::patch
+}
+
+src_build() {
+  CMAKE_LIBRARY_PATH="$LIBRARY_PATH" \
+  CMAKE_INCLUDE_PATH="$CPATH"\
+  cmake -B build -G Ninja \
+    -DCMAKE_CXX_FLAGS="-fuse-ld=lld" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX="/usr" \
+    -DDISABLE_ADVANCE_SIMD=ON \
+    -DDISABLE_BUILD_DATE=ON \
+    -DENABLE_TESTS=OFF \
+    -DLIBRETRO=ON \
+    -DQT_BUILD=OFF \
+    -DLTO_PCSX2_CORE=ON \
+    -DUSE_SYSTEM_LIBS=ON \
+    -DXDG_STD=ON \
+    -Wno-dev
+
+
+ # rm -rf 3rdparty/libzip
+  ninja -C build
+}
+
+src_install() {
+    #local base_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/retroarch"
+    #fs::mkdir "${base_dir}/cores" "${base_dir}/system/pcsx2/"{bios,cheats,cheats_ws,memcards}
+
+    install -Dm 644 build/pcsx2/pcsx2_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/lib/libretro
+    install -Dm644 COPYING.* -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

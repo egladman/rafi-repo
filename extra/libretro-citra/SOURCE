@@ -1,0 +1,22 @@
+src_unpack() {
+    git::rclone https://github.com/libretro/citra.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_configure() {
+    git::patch
+}
+
+src_build() {
+    CFLAGS=-fPIC \
+    CXXFLAGS=-fPIC \
+    make -j$(nproc)
+}
+
+src_install() {
+    install -Dm 644 citra_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 license.txt -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

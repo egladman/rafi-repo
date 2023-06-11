@@ -1,0 +1,15 @@
+src_unpack() {
+    git::clone https://github.com/libretro/retroarch-assets.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_install() {
+    fs::mkdir ${PKG_PFX_DIR}/usr/share/libretro/assets
+
+    cp -r glui ${PKG_PFX_DIR}/usr/share/libretro/assets
+    cp -r ozone ${PKG_PFX_DIR}/usr/share/libretro/assets
+    cp -r xmb ${PKG_PFX_DIR}/usr/share/libretro/assets
+}

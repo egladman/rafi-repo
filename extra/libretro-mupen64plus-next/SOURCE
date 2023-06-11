@@ -1,0 +1,29 @@
+src_unpack() {
+    git::clone https://github.com/libretro/mupen64plus-libretro-nx.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_configure() {
+   git::patch
+}
+
+src_build() {
+  CXXFLAGS=-flto \
+  make -j$(nproc) \
+    WITH_DYNAREC=x86_64 \
+    HAVE_PARALLEL_RDP=1 \
+    HAVE_PARALLEL_RSP=1 \
+    HAVE_THR_AL=1 \
+    SYSTEM_LIBPNG=1 \
+    SYSTEM_MINIZIP=1 \
+    SYSTEM_XXHASH=1 \
+    SYSTEM_ZLIB=1
+}
+
+src_install() {
+    install -Dm 644 mupen64plus_next_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 LICENSE -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

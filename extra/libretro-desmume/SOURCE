@@ -1,0 +1,17 @@
+src_unpack() {
+    git::clone https://github.com/libretro/desmume.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+    fs::mkdir build
+}
+
+src_build() {
+    make -C desmume/src/frontend/libretro -f Makefile.libretro
+}
+
+src_install() {
+    install -Dm 644 desmume/src/frontend/libretro/desmume_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 license.txt -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

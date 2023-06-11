@@ -1,0 +1,32 @@
+src_unpack() {
+    git::clone https://github.com/libretro/LRPS2.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+    fs::mkdir build
+}
+
+src_configure() {
+    git::patch
+}
+
+src_build() {
+    cd build
+
+    CMAKE_LIBRARY_PATH="$LIBRARY_PATH" \
+    CMAKE_INCLUDE_PATH="$CPATH" \
+    cmake .. \
+        -DLIBRETRO=ON \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DDISABLE_ADVANCE_SIMD=ON
+    make -j$(nproc)
+}
+
+src_install() {
+    local base_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/retroarch"
+    fs::mkdir "${base_dir}/system/pcsx2/"{bios,cheats,cheats_ws,memcards}
+
+    install -Dm 644 build/pcsx2/pcsx2_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/lib/libretro
+    install -Dm644 COPYING.* -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}

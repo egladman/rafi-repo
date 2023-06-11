@@ -1,0 +1,24 @@
+diff --git a/mupen64plus-rsp-paraLLEl/rsp_disasm.hpp b/mupen64plus-rsp-paraLLEl/rsp_disasm.hpp
+index 22c464b..3f9b3e4 100644
+--- a/mupen64plus-rsp-paraLLEl/rsp_disasm.hpp
++++ b/mupen64plus-rsp-paraLLEl/rsp_disasm.hpp
+@@ -1,6 +1,7 @@
+ #ifndef RSP_DISASM_HPP_
+ #define RSP_DISASM_HPP_
+ 
++#include <cstdint>
+ #include <string>
+ 
+ namespace RSP
+diff --git a/mupen64plus-video-angrylion/parallel_al.cpp b/mupen64plus-video-angrylion/parallel_al.cpp
+index a269e43..3256fed 100644
+--- a/mupen64plus-video-angrylion/parallel_al.cpp
++++ b/mupen64plus-video-angrylion/parallel_al.cpp
+@@ -8,6 +8,7 @@
+ #include <cstdint>
+ #include <functional>
+ #include <mutex>
++#include <stdexcept>
+ #include <thread>
+ #include <vector>
+ 

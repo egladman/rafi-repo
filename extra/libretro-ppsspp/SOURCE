@@ -1,0 +1,20 @@
+src_unpack() {
+    git::rclone https://github.com/hrydgard/ppsspp.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+}
+
+src_build() {
+    ./b.sh --libretro
+}
+
+src_install() {
+    local base_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/retroarch"
+    fs::mkdir "${base_dir}/system/PPSSPP"
+    cp -r assets/* "${base_dir}/system/PPSSPP"
+
+    install -Dm 644 build/lib/ppsspp_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/lib/libretro
+    install -Dm 644 LICENSE.TXT -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/share/licenses/${PKG_SPEC_NAME}
+}

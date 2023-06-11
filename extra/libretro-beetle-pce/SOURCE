@@ -1,0 +1,19 @@
+src_unpack() {
+    git::clone https://github.com/libretro/beetle-pce-libretro.git
+}
+
+src_prepare() {
+    git::checkout "$PKG_SPEC_REF"
+    fs::mkdir build
+}
+
+src_build() {
+  make \
+    SYSTEM_LIBCHDR=0 \
+    SYSTEM_ZLIB=1
+}
+
+src_install() {
+    install -Dm 644 mednafen_pce_libretro.so -t "${PKG_DATA_PFX_SPEC_DIR}/usr/lib/libretro"
+    install -Dm 644 COPYING -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/${PKG_SPEC_NAME}"
+}
