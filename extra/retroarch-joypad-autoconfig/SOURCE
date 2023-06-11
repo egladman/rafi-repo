@@ -7,7 +7,7 @@ src_prepare() {
 }
 
 src_install() {
-    find . -iname '*.cfg' -type f -exec install -Dm 644 {} "${PKG_PFX_DIR}"/usr/share/libretro/autoconfig/{} \;
-    install -Dm 644 -t "${PKG_PFX_DIR}"/usr/share/doc/$pkgname README.md retropad_layout.png
-    install -Dm 644 -t "${PKG_PFX_DIR}"/usr/share/licenses/${PKG_SPEC_NAME} COPYING
+    find . -iname '*.cfg' -type f -exec install -Dm 644 {} "${PKG_DATA_PFX_SPEC_DIR}"/usr/share/libretro/autoconfig/{} \;
+    install -Dm 644 -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/share/doc/${PKG_SPEC_NAME} README.md retropad_layout.png
+    install -Dm 644 -t "${PKG_DATA_PFX_SPEC_DIR}"/usr/share/licenses/${PKG_SPEC_NAME} COPYING
 }

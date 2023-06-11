@@ -7,6 +7,6 @@ src_prepare() {
 }
 
 src_install() {
-    fs::mkdir ${PKG_PFX_DIR}/usr/share/libretro/info
-    cp *.info ${PKG_PFX_DIR}/usr/share/libretro/info
+    fs::mkdir ${PKG_DATA_PFX_SPEC_DIR}/usr/share/libretro/info
+    cp *.info ${PKG_DATA_PFX_SPEC_DIR}/usr/share/libretro/info
 }
