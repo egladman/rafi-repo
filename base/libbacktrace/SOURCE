@@ -18,5 +18,4 @@ src_build() {
 src_install() {
     make DESTDIR="${PKG_DATA_PFX_SPEC_DIR}" install
     install -Dm 644 "LICENSE" -t "${PKG_DATA_PFX_SPEC_DIR}/usr/share/licenses/libbacktrace"
-    tree "${PKG_DATA_PFX_SPEC_DIR}"
 }
