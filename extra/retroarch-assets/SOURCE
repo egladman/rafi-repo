@@ -7,7 +7,7 @@ src_prepare() {
 }
 
 src_install() {
-    fs::mkdir ${PKG_PFX_DIR}/usr/share/libretro/assets
+    fs::mkdir ${PKG_DATA_PFX_SPEC_DIR}/usr/share/libretro/assets
 
     cp -r glui ${PKG_DATA_PFX_SPEC_DIR}/usr/share/libretro/assets
     cp -r ozone ${PKG_DATA_PFX_SPEC_DIR}/usr/share/libretro/assets
